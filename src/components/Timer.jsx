@@ -4,6 +4,7 @@ export const Timer = ({ date, onCloseTimer }) => {
   const [minute, setMinute] = useState(1)
   const [second, setSecond] = useState(date.getSeconds())
   let interval
+  let state="active"
 
   useEffect(() => {
     interval = setInterval(() => {
@@ -25,11 +26,17 @@ export const Timer = ({ date, onCloseTimer }) => {
   }, [second])
 
   const handlePause = () => {
+    if(state!='paused'){
     clearInterval(interval)
+    state='paused'
+    }
   }
 
   const handleContinue = () => {
-    setSecond(second - 1)
+    if(state!='active'){
+      setSecond(second - 1)
+      state='active'
+    }
   }
 
   return (
